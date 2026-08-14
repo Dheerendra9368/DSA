@@ -3,7 +3,7 @@ public:
     vector<vector<int>> ans;
     vector<vector<int>> dir={{1,0},{0,1},{-1,0},{0,-1}};
     void dfs(int r,int c,vector<vector<int>>& grid,vector<vector<int>> &vis,int color){
-        if(vis[r][c]==1) return;
+        // if(vis[r][c]==1) return;
         int n=grid.size();
         int m=grid[0].size();
         vis[r][c]=1;

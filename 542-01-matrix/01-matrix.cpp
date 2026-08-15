@@ -3,7 +3,6 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int n=mat.size();
         int m=mat[0].size();
-        vector<vector<int>> dup=mat;
         vector<vector<int>> vis(n,vector<int>(m,0));
         queue<pair<int,int>> q;
         for(int i=0;i<n;i++){
@@ -29,13 +28,13 @@ public:
                     int newc=c+dir[i][1];
                     if(newc<0 || newc>=m || newr<0 || newr>=n) continue;
                     if(mat[newr][newc]!=0 && vis[newr][newc]==0){
-                        dup[newr][newc]=dis;
+                        mat[newr][newc]=dis;
                         vis[newr][newc]=1;
                         q.push({newr,newc});
                     }
                 }
             }
         }
-        return dup;
+        return mat;
     }
 };

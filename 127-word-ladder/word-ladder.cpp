@@ -13,8 +13,7 @@ public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         unordered_map<string,vector<string>> mp;
         unordered_map<string,int> vis;
-        unordered_set<string> st;
-        for(string x:wordList) st.insert(x);
+        unordered_set<string> st(wordList.begin(),wordList.end());
         int n=wordList.size();
         bool beginpre=false;
         bool endpre=false;

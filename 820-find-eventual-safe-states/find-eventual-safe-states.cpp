@@ -11,26 +11,29 @@ public:
                 indegree[i]++;
             }
         }
-        vector<int> ans;
+        vector<bool> safe(n,false);
         queue<int> q;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 q.push(i);
-                ans.push_back(i);
             }
         }
         while(q.size()>0){
             int x=q.front();
             q.pop();
+            safe[x]=true;
             for(int neighbor:graph[x]){
                 indegree[neighbor]--;
                 if(indegree[neighbor]==0){
                     q.push(neighbor);
-                    ans.push_back(neighbor);
                 }
             }
         }
-        sort(ans.begin(),ans.end());
+        vector<int> ans;
+        for(int i=0;i<n;i++){
+            if(safe[i]) ans.push_back(i);
+        }
+        
         return ans;
     }
 };

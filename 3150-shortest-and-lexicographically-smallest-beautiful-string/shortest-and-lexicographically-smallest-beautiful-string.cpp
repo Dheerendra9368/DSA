@@ -1,8 +1,6 @@
 class Solution {
 public:
-    static bool cmp(string a,string b){
-        return a.size()<b.size();
-    }
+
     string shortestBeautifulSubstring(string s, int k) {
         vector<string> arr;
         int ans=INT_MAX;
@@ -29,7 +27,7 @@ public:
             while(i<n && s[i]!='1') i++;    
             }
             cout<<ans;
-            if(arr.size()==0) return "";
+            // if(arr.size()==0) return "";
             string t="";
             for(string x:arr){
                 if(x.size()==ans){

@@ -49,7 +49,7 @@ int find(vector<int>& par,int x){
         int n=points.size();
         vector<vector<int>> edges;
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
+            for(int j=i+1;j<n;j++){
                 edges.push_back({i,j,abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1])});
             }
         }

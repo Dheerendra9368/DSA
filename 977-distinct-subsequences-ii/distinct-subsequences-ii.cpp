@@ -1,39 +1,27 @@
 class Solution {
 public:
-    int M = 1e9+7;
-
-    int solve(int n,vector<int> &dp,vector<int> &prev) {
-        if(n == 0)
-            return 1;
-
-        if(dp[n] != -1)
-            return dp[n];
-        
-        int total = (2*solve(n-1,dp,prev)) % M;
-
-        if(prev[n] != 0) {
-            int duplicates = solve(prev[n] - 1,dp,prev);
-            total = (total - duplicates + M) % M;
+    int MOD=1e9+7;
+    int f(int n,vector<int> &dp,vector<int> &prev){
+        if(n==0) return 1;
+        if(dp[n]!=-1) return dp[n];
+        int total=2*(f(n-1,dp,prev))%MOD;
+        if(prev[n]!=0){
+            int dup=f(prev[n]-1,dp,prev);
+            total=(total-dup+MOD)%MOD;
         }
-
-        return dp[n] = total;
+        return dp[n]=total%MOD;
     }
 
     int distinctSubseqII(string s) {
-        int n = s.length();
-
-        vector<int> dp(n+1,-1);
-        vector<int> prev(n+1,0);//prev[n] = last time when we saw this nth character (1-based indexing)
-
-        vector<int> lastSeen(26,0);
-        for(int i = 1; i <= n; i++) {
-            int idx = s[i-1] -'a';
-
-            prev[i] = lastSeen[idx];
-            lastSeen[idx] = i;
+        int n=s.size();
+        vector<int> prev(n+1,0);
+        vector<int> lastSeen(26,-1);
+        for(int i=0;i<n;i++){
+            int idx=s[i]-'a';
+            if(lastSeen[idx]!=-1) prev[i+1]=lastSeen[idx];
+            lastSeen[idx]=i+1;
         }
-
-        return (solve(n,dp,prev) - 1 + M) % M;
-
+        vector<int> dp(n+1,-1);
+        return (f(n,dp,prev)-1+MOD)%MOD;
     }
 };

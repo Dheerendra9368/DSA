@@ -9,13 +9,14 @@ public:
         int n=grid.size();
         vector<vector<int>> dis(n,vector<int>(n,INT_MAX));
         dis[0][0]=1;
-        priority_queue<p,vector<p>,greater<p>> pq;
-        pq.push({1,{0,0}});
-        while(pq.size()>0){
-            int r=pq.top().second.first;
-            int c=pq.top().second.second;
-            int wt=pq.top().first;
-            pq.pop();
+        // priority_queue<p,vector<p>,greater<p>> pq;
+        queue<p> q;
+        q.push({1,{0,0}});
+        while(q.size()>0){
+            int r=q.front().second.first;
+            int c=q.front().second.second;
+            int wt=q.front().first;
+            q.pop();
             if(dis[r][c]<wt) continue;
             for(int i=0;i<8;i++){
                 int newr=r+dir[i][0];
@@ -23,7 +24,7 @@ public:
                 if(newr<0 || newc<0 || newr==n || newc==n || grid[newr][newc]==1) continue;
                 if(dis[newr][newc]>dis[r][c]+1){
                     dis[newr][newc]=dis[r][c]+1;
-                    pq.push({dis[newr][newc],{newr,newc}});
+                    q.push({dis[newr][newc],{newr,newc}});
                 }
             }
         }

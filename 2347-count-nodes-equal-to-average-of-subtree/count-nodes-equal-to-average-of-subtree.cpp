@@ -11,24 +11,21 @@
  */
 class Solution {
 public:
-    int tchild(TreeNode* root){
-        if(root==NULL) return 0;
-        else return tchild(root->left)+tchild(root->right)+1;
-    }
 
-    int Sum(TreeNode* root,int &ans){
-        if(root==NULL) return 0;
+    pair<int,int> f(TreeNode* root,int &ans){
+        if(root==NULL) return {0,0};
         else{
-            int leftsum=Sum(root->left,ans);
-            int rightsum=Sum(root->right,ans);
-            int n=tchild(root);
-            if((root->val+leftsum+rightsum)/n==root->val) ans++;
-            return root->val+leftsum+rightsum;
+            auto lefttree=f(root->left,ans);
+            auto righttree=f(root->right,ans);
+            int n=1+lefttree.second+righttree.second;
+            int sum=root->val+lefttree.first+righttree.first;
+            if(sum/n==root->val) ans++;
+            return {sum,n};
         }
     }
     int averageOfSubtree(TreeNode* root) {
         int ans=0;
-        Sum(root,ans);
+        f(root,ans);
         return ans;
     }
 };

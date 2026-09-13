@@ -21,9 +21,9 @@ public:
                 int dx=x2-x1;
                 int dy=y2-y1;
                 mp[{dx,dy}]++;
+                ans=max(ans,mp[{dx,dy}]);
             }
         }
-        for(auto ele:mp) ans=max(ans,ele.second);
         return ans;
     }
 };

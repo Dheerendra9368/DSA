@@ -10,7 +10,7 @@ public:
                 if(img2[i][j]==1) img2cor.push_back({i,j});
             }
         }
-        map<pair<int,int>, int> mp;
+        unordered_map<int, int> mp;
         int ans=0;
         for(auto ele:img1cor){
             int x1=ele[0];
@@ -20,8 +20,9 @@ public:
                 int y2=ele2[1];
                 int dx=x2-x1;
                 int dy=y2-y1;
-                mp[{dx,dy}]++;
-                ans=max(ans,mp[{dx,dy}]);
+                int key = (dx + n) *61 + (dy + n);
+                mp[key]++;
+                ans=max(ans,mp[key]);
             }
         }
         return ans;

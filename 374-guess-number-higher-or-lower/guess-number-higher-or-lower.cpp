@@ -11,10 +11,16 @@ class Solution {
 public:
     int guessNumber(int n) {
       int pick=n;
-      while(guess(pick)!=0){
-        int x=guess(pick);
-        if(x==1) pick=pick+1;
-        else pick=pick-1;
+      int x=guess(pick);
+      while(x!=0){
+        if(x==1){
+            x=guess(pick+1);
+            pick++;
+        }
+        else{
+            x=guess(pick-1);
+            pick--;
+        }
       }
       return pick;
     }

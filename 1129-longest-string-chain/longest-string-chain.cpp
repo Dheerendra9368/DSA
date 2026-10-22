@@ -24,20 +24,26 @@ public:
         return s1.size()<s2.size();
     }
 
+    void checkAll(unordered_map<string,int> &mp,string &s){
+        int n=s.size();
+        //every substring of length n-1
+        for(int i=0;i<n;i++){
+            string temp=s.substr(0,i);
+            if(i+1<n) temp+=s.substr(i+1);
+            if(mp.count(temp)) mp[s]=max(mp[s],mp[temp]+1);
+        }
+    }
+
     int longestStrChain(vector<string>& words) {
         int n=words.size();
         sort(words.begin(),words.end(),cmp);
         if(n==1) return 1;
-        vector<int> dp(n,1);
-        int ans=dp[0];
-        for(int i=1;i<n;i++){
-            for(int j=i-1;j>=0;j--){
-                if(words[j].size()+1<words[i].length()) break;
-                if(isPredecessor(words[j],words[i])){
-                    dp[i]=max(dp[i],1+dp[j]);
-                }
-            }
-            ans=max(ans,dp[i]);
+        unordered_map<string,int> mp;
+        for(auto ele:words) mp[ele]=1;
+        int ans=1;
+        for(int i=0;i<n;i++){
+            checkAll(mp,words[i]);
+            ans=max(ans,mp[words[i]]);
         }
         return ans;
     }

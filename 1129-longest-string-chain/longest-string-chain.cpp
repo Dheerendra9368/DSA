@@ -32,6 +32,7 @@ public:
         int ans=dp[0];
         for(int i=1;i<n;i++){
             for(int j=i-1;j>=0;j--){
+                if(words[j].size()+1<words[i].length()) break;
                 if(isPredecessor(words[j],words[i])){
                     dp[i]=max(dp[i],1+dp[j]);
                 }
